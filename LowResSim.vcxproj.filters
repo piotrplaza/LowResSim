@@ -11,6 +11,12 @@
     <Filter Include="src\tools">
       <UniqueIdentifier>{ecf093b6-bc04-46f7-b148-e8cd9d8e180d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ogl\shaders">
+      <UniqueIdentifier>{4cb865e6-e110-4fd1-9e5e-ff3ce4810821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ogl\buffers">
+      <UniqueIdentifier>{a8b69f98-1e50-49ce-a43e-bd43121978ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -30,6 +36,15 @@
     </ClCompile>
     <ClCompile Include="ogl\oglProxy.cpp">
       <Filter>src\ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="ogl\buffers\posColorBuffers.cpp">
+      <Filter>src\ogl\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="colorBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="demo.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,5 +66,31 @@
     <ClInclude Include="ogl\oglProxy.hpp">
       <Filter>src\ogl</Filter>
     </ClInclude>
+    <ClInclude Include="ogl\shaders\programBase.hpp">
+      <Filter>src\ogl\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ogl\shaders\tiles.hpp">
+      <Filter>src\ogl\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ogl\buffers\posColorBuffers.hpp">
+      <Filter>src\ogl\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="colorBuffer.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="demo.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ogl\shaders\tiles.fs">
+      <Filter>src\ogl\shaders</Filter>
+    </None>
+    <None Include="ogl\shaders\tiles.gs">
+      <Filter>src\ogl\shaders</Filter>
+    </None>
+    <None Include="ogl\shaders\tiles.vs">
+      <Filter>src\ogl\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

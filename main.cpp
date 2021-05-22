@@ -11,14 +11,22 @@
 
 #include <glm/glm.hpp>
 
+#include "ogl/oglProxy.hpp"
 #include "ogl/oglHelpers.hpp"
+#include "ogl/shaders/tiles.hpp"
+#include "ogl/buffers/posColorBuffers.hpp"
 
 #include "tools/utility.hpp"
 #include "tools/glmHelpers.hpp"
 
+#include "colorBuffer.hpp"
+
+#include "demo.hpp"
+
 const bool fullScreen = false;
 const bool console = true;
 const glm::ivec2 windowRes = { 1600, 1600 };
+const glm::ivec2 simulatedRes = { 2, 2 };
 
 glm::ivec2 mousePos{ 0 };
 glm::ivec2 mouseDelta{ 0 };
@@ -33,6 +41,32 @@ glm::ivec2 windowLocation{ 0 };
 glm::ivec2 windowCenter{ 0 };
 glm::ivec2 windowSize{ 0 };
 
+std::unique_ptr<Shaders::Programs::Tiles> tilesShader;
+std::unique_ptr<Buffers::PosColorBuffers> posColorBuffers;
+
+ColorBuffer colorBuffer(simulatedRes);
+
+void TilesInitialize()
+{
+	std::vector<glm::vec2> tilesPositions;
+	tilesPositions.reserve(simulatedRes.x * simulatedRes.y);
+
+	const float stepX = 2.0f / simulatedRes.x;
+	const float stepY = 2.0f / simulatedRes.y;
+
+	for (int iy = 0; iy < simulatedRes.y; ++iy)
+	{
+		for (int ix = 0; ix < simulatedRes.x; ++ix)
+		{
+			tilesPositions.emplace_back(-1.0f + stepX / 2.0f + stepX * ix, -1.0f + stepY / 2.0f + stepY * iy);
+		}
+	}
+
+	posColorBuffers->setPositionBuffer(*tilesPositions.data(), tilesPositions.size(), GL_STATIC_DRAW);
+
+	tilesShader->hSizeUniform.setValue({ stepX / 2.0f, stepY / 2.0f });
+}
+
 void OGLInitialize()
 {
 	const GLenum glewInitResult = glewInit();
@@ -40,6 +74,11 @@ void OGLInitialize()
 
 	Tools::VSync(true);
 	glEnable(GL_CULL_FACE);
+
+	tilesShader = std::make_unique<Shaders::Programs::Tiles>();
+	posColorBuffers = std::make_unique<Buffers::PosColorBuffers>();
+
+	TilesInitialize();
 }
 
 void Initialize()
@@ -54,10 +93,18 @@ void RenderScene()
 	const glm::vec4 clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glUseProgram_proxy(tilesShader->getProgramId());
+
+	posColorBuffers->setColorBuffer(colorBuffer.data(), colorBuffer.getRes().x * colorBuffer.getRes().y, GL_DYNAMIC_DRAW);
+
+	posColorBuffers->bindVertexArray();
+	glDrawArrays(GL_POINTS, 0, posColorBuffers->getNumOfVertices());
 }
 
 void PrepareFrame()
 {
+	Demo(colorBuffer);
 	RenderScene();
 }
 

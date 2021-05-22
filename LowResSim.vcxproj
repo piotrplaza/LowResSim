@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\libraries\glm;C:\libraries\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\libraries\glm;C:\libraries\glew-2.1.0\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\libraries\glm;C:\libraries\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\libraries\glm;C:\libraries\glew-2.1.0\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -149,7 +149,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="colorBuffer.cpp" />
+    <ClCompile Include="demo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ogl\buffers\posColorBuffers.cpp" />
     <ClCompile Include="ogl\oglHelpers.cpp" />
     <ClCompile Include="ogl\oglProxy.cpp" />
     <ClCompile Include="ogl\shaders.cpp" />
@@ -157,12 +160,22 @@
     <ClCompile Include="tools\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="colorBuffer.hpp" />
+    <ClInclude Include="demo.hpp" />
+    <ClInclude Include="ogl\buffers\posColorBuffers.hpp" />
     <ClInclude Include="ogl\oglHelpers.hpp" />
     <ClInclude Include="ogl\oglProxy.hpp" />
     <ClInclude Include="ogl\shaders.hpp" />
+    <ClInclude Include="ogl\shaders\programBase.hpp" />
+    <ClInclude Include="ogl\shaders\tiles.hpp" />
     <ClInclude Include="ogl\uniformControllers.hpp" />
     <ClInclude Include="tools\glmHelpers.hpp" />
     <ClInclude Include="tools\utility.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ogl\shaders\tiles.fs" />
+    <None Include="ogl\shaders\tiles.gs" />
+    <None Include="ogl\shaders\tiles.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
