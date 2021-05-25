@@ -2,6 +2,8 @@
 #include <stdexcept>
 #include <vector>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include <windows.h>
 #include <shellscalingapi.h>
@@ -23,10 +25,11 @@
 
 #include "demo.hpp"
 
-const bool fullScreen = false;
-const bool console = true;
+const bool fullScreen = true;
+const bool console = false;
 const glm::ivec2 windowRes = { 1600, 1600 };
-const glm::ivec2 simulatedRes = { 200, 200 };
+const glm::ivec2 simulatedRes = { 300, 200 };
+const int frameSleepMs = 20;
 
 glm::ivec2 mousePos{ 0 };
 glm::ivec2 mouseDelta{ 0 };
@@ -350,8 +353,9 @@ int APIENTRY WinMain(
 			HandleMouse();
 			PrepareFrame();
 
-			glFinish(); //It helps with stuttering in some scenarios.
 			SwapBuffers(hDC);
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(frameSleepMs));
 		}
 	}
 	
