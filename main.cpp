@@ -26,7 +26,7 @@
 const bool fullScreen = false;
 const bool console = true;
 const glm::ivec2 windowRes = { 1600, 1600 };
-const glm::ivec2 simulatedRes = { 2, 2 };
+const glm::ivec2 simulatedRes = { 200, 200 };
 
 glm::ivec2 mousePos{ 0 };
 glm::ivec2 mouseDelta{ 0 };
