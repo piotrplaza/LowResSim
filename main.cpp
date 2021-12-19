@@ -49,6 +49,8 @@ std::unique_ptr<Buffers::PosColorBuffers> posColorBuffers;
 
 ColorBuffer colorBuffer(simulatedRes);
 
+int mode = 0;
+
 void TilesInitialize()
 {
 	std::vector<glm::vec2> tilesPositions;
@@ -107,12 +109,36 @@ void RenderScene()
 
 void PrepareFrame()
 {
-	Demo(colorBuffer);
+	switch (mode)
+	{
+	case 0:
+		ColorFlames(colorBuffer);
+		break;
+	case 1:
+		PlasmaSpawner(colorBuffer);
+		break;
+	case 2:
+		ColorChanneling(colorBuffer);
+		break;
+	}
+
 	RenderScene();
 }
 
 void HandleKeyboard(bool const* const keys)
 {
+	static bool space = false;
+	if (keys[VK_SPACE])
+	{
+		if (!space)
+		{
+			mode = (mode + 1) % 3;
+			colorBuffer.clear();
+			space = true;
+		}
+	}
+	else
+		space = false;
 }
 
 void ResetMousePosition()
